@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewConceptoPrecioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:link outcome="/index" value="#{bundle.ViewConceptoPrecioIndexLink}"/>
+                <br/>
+                <hr/>
+                <br/>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewConceptoPrecioLabel_codigo}"/>
+                    <h:outputText value="#{conceptoPrecioController.selected.codigo}" title="#{bundle.ViewConceptoPrecioTitle_codigo}"/>
+                    <h:outputText value="#{bundle.ViewConceptoPrecioLabel_concepto}"/>
+                    <h:outputText value="#{conceptoPrecioController.selected.concepto}" title="#{bundle.ViewConceptoPrecioTitle_concepto}"/>
+                    <h:outputText value="#{bundle.ViewConceptoPrecioLabel_clasificacion}"/>
+                    <h:outputText value="#{conceptoPrecioController.getConceptoClasificacion(conceptoPrecioController.selected.clasificacion)}" title="#{bundle.ViewConceptoPrecioTitle_clasificacion}"/>
+                    <h:outputText value="#{bundle.ViewConceptoPrecioLabel_descripcion}"/>
+                    <h:outputText value="#{conceptoPrecioController.selected.descripcion}" title="#{bundle.ViewConceptoPrecioTitle_descripcion}"/>
+                    <h:outputText value="#{bundle.ViewConceptoPrecioLabel_creado}"/>
+                    <h:outputText value="#{conceptoPrecioController.selected.creado}" title="#{bundle.ViewConceptoPrecioTitle_creado}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputLabel value="" />
+                    <h:link outcome="Edit" value="#{bundle.ViewConceptoPrecioEditLink}"/>
+                    <h:outputLabel value="" />
+                    <h:commandButton action="#{conceptoPrecioController.destroyAndView}" value="#{bundle.ViewConceptoPrecioDestroyLink}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandButton action="#{conceptoPrecioController.prepareCreate}" value="#{bundle.ViewConceptoPrecioCreateLink}" />
+                &nbsp;&nbsp;
+                <h:commandButton action="#{conceptoPrecioController.prepareList}" value="#{bundle.ViewConceptoPrecioShowAllLink}"/>
+                <br />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

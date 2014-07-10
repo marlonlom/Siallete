@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListConceptoPrecioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:link outcome="/index" value="#{bundle.ListConceptoPrecioIndexLink}"/>
+                <br/>
+                <hr/>
+                <br/>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListConceptoPrecioEmpty}" rendered="#{conceptoPrecioController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{conceptoPrecioController.items.rowCount > 0}">
+                    <h:outputText value="#{conceptoPrecioController.pagination.pageFirstItem + 1}..#{conceptoPrecioController.pagination.pageLastItem + 1}/#{conceptoPrecioController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandButton action="#{conceptoPrecioController.previous}" value="#{bundle.Previous} #{conceptoPrecioController.pagination.pageSize}" rendered="#{conceptoPrecioController.pagination.hasPreviousPage}"/>&nbsp;
+                    &nbsp;&nbsp;
+                    <h:commandButton action="#{conceptoPrecioController.next}" value="#{bundle.Next} #{conceptoPrecioController.pagination.pageSize}" rendered="#{conceptoPrecioController.pagination.hasNextPage}"/>&nbsp;
+                    <br/><br/>
+                    <h:dataTable value="#{conceptoPrecioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConceptoPrecioTitle_codigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConceptoPrecioTitle_concepto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.concepto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConceptoPrecioTitle_clasificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{conceptoPrecioController.getConceptoClasificacion(item.clasificacion)}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConceptoPrecioTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConceptoPrecioTitle_creado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creado}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandButton action="#{conceptoPrecioController.prepareView}" value="#{bundle.ListConceptoPrecioViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandButton action="#{conceptoPrecioController.prepareEdit}" value="#{bundle.ListConceptoPrecioEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandButton action="#{conceptoPrecioController.destroy}" value="#{bundle.ListConceptoPrecioDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandButton action="#{conceptoPrecioController.prepareCreate}" value="#{bundle.ListConceptoPrecioCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
